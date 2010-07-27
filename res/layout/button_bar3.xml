@@ -3,33 +3,36 @@
    	    android:layout_width="fill_parent"
         android:layout_height="wrap_content"
    		android:layout_below="@+id/header"
-   		android:layout_centerInParent="true"
+   		android:layout_gravity="center_horizontal"
+   		android:gravity = "center"
    		android:weightSum="1">
+   		
     <edu.ucla.cens.budburst.helper.IndicatorButton
         android:id="@+id/button1"
 		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="29dip"
         android:layout_alignParentTop="true" 
         android:text="@string/button_bar1"
-        android:layout_weight="0.33333"
+        android:layout_weight="0.3333333333"
+        android:gravity = "center"
         android:maxWidth="0px" />
-
+        
 	<edu.ucla.cens.budburst.helper.IndicatorButton
 		android:id="@+id/button2"
 		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="29dip"
         android:layout_alignParentTop="true" 
         android:text="@string/button_bar2"
-        android:layout_weight="0.33333"
+        android:layout_weight="0.3333333333"
         android:maxWidth="0px" />
 
 	<edu.ucla.cens.budburst.helper.IndicatorButton
 		android:id="@+id/button3"
 		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="29dip"
         android:layout_alignParentTop="true" 
         android:text="@string/button_bar3"
-        android:layout_weight="0.33333" 
+        android:layout_weight="0.3333333333" 
         android:maxWidth="0px" />
 
 

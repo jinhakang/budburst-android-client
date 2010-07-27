@@ -11,6 +11,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 
 import android.os.AsyncTask;
@@ -36,7 +39,12 @@ public class DownloadManager {
 	public void download(Downloadable context, int what, Download d) {
 		Log.d(TAG, "start to download for " + context.toString());
 		if (!cache.containsKey(d) || d.isVolitile()) {
-			new DownloadTask().execute(new DownloadObject(context, what, d));
+			try{
+				new DownloadTask().execute(new DownloadObject(context, what, d));
+			}
+			catch(Exception e){
+				Log.e("DownloadManager", e.getMessage());
+			}
 			cache.put(d, null);
 		} else if (cache.get(d) != null) {
 			Message msg = new Message();
@@ -47,9 +55,7 @@ public class DownloadManager {
 	}
 
 	public void upload(Uploadable context, int what, Download d) {
-
 		new UploadTask().execute(new UploadObject(context, what, d));
-
 	}
 
 	public Boolean has(Download d) {
@@ -58,7 +64,13 @@ public class DownloadManager {
 
 	public Object get(Downloadable context, Download d) {
 		if (!cache.containsKey(d)) {
-			new DownloadTask().execute(new DownloadObject(context, 0, d));
+			try{
+				new DownloadTask().execute(new DownloadObject(context, 0, d));
+			}
+			catch(Exception e){
+				Log.e("DownloadManager", e.getMessage());
+			}
+
 			cache.put(d, null);
 		}
 		return cache.get(d);
@@ -102,8 +114,18 @@ public class DownloadManager {
 			DownloadObject d = downloadObjects[0];
 			try {
 
+				//Set HttpParameters
+				HttpParams httpParameters = new BasicHttpParams();
+				//Set the timeout in milliseconds until a connection is established.
+				int timeoutConnection = 60000;
+				HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+				//Set the default socket timeout
+				//in milliseconds which is the timeout for waiting for data.
+				int timeoutSocket = 120000;
+				HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+				
 				// Create new client.
-				HttpClient httpClient = new DefaultHttpClient();
+				HttpClient httpClient = new DefaultHttpClient(httpParameters);
 
 				// Form request with post data.
 				HttpPost httpRequest = new HttpPost(d.download.url);

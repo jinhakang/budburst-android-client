@@ -53,12 +53,14 @@ public class SyncDatabases extends Activity implements Downloadable, Uploadable 
 	}
 
 	public void downloads() {
-		String url = ((SyncableDatabase) dbManager.getDatabase("site")).getDownURL() + PreferencesManager.currentGETAuthParams(this);
+		String url = ((SyncableDatabase) dbManager.getDatabase("site")).getDownURL() 
+			+ PreferencesManager.currentGETAuthParams(this);
 		Download d = new Download(url);
 		downloads.add(d);
 		downloadManager.download(this, DOWNLOADED_SITES, d);
 
-		url = ((SyncableDatabase) dbManager.getDatabase("observation")).getDownURL() + PreferencesManager.currentGETAuthParams(this);
+		url = ((SyncableDatabase) dbManager.getDatabase("observation")).getDownURL() 
+			+ PreferencesManager.currentGETAuthParams(this);
 		d = new Download(url);
 		downloads.add(d);
 		downloadManager.download(this, DOWNLOADED_OBSERVATIONS, d);
@@ -105,7 +107,8 @@ public class SyncDatabases extends Activity implements Downloadable, Uploadable 
 				downloadManager.download(this, DOWNLOADED_PLANTS, plantd);
 
 				// Species
-				url = ((SyncableDatabase) dbManager.getDatabase("species")).getDownURL() + PreferencesManager.currentGETAuthParams(this);
+				url = ((SyncableDatabase) dbManager.getDatabase("species")).getDownURL() 
+					+ PreferencesManager.currentGETAuthParams(this);
 
 				plantd = new Download(url + "&site_id=" + site_id);
 				downloads.add(plantd);
@@ -133,7 +136,8 @@ public class SyncDatabases extends Activity implements Downloadable, Uploadable 
 			((SyncableDatabase) dbManager.getDatabase("plant")).sync((String) msg.obj);
 			break;
 		case DOWNLOADED_OBSERVATION_IMAGE:
-			ObservationRow o = (ObservationRow) dbManager.getDatabase("observation").find("image_id=" + d.url.split("=")[1]).get(0);
+			ObservationRow o = (ObservationRow) dbManager.getDatabase("observation")
+				.find("image_id=" + d.url.split("=")[1]).get(0);
 			try {
 				FileOutputStream out = new FileOutputStream(o.getImagePath());
 				((Bitmap) msg.obj).compress(Bitmap.CompressFormat.JPEG, 90, out);
@@ -156,16 +160,26 @@ public class SyncDatabases extends Activity implements Downloadable, Uploadable 
 	public void upload(int what, Download d) {
 		switch (what) {
 		case UPLOAD_OBSERVATIONS:
-			((SyncableDatabase) dbManager.getDatabase("observation")).uploadData();
+			try{
+				((SyncableDatabase) dbManager.getDatabase("observation")).uploadData();
+			}catch(Exception e){
+				Log.e("SyncDatabases", "upload() failed.");
+				Log.e("SyncDatabases", e.getMessage());
+			}
 			break;
 		case UPLOAD_PLANTS:
-			((SyncableDatabase) dbManager.getDatabase("plant")).uploadData();
+			try{
+				((SyncableDatabase) dbManager.getDatabase("plant")).uploadData();
+			}catch(Exception e){
+				Log.e("SyncDatabases", "upload() failed.");
+				Log.e("SyncDatabases", e.getMessage());
+			}
+			
 
 			String url = ((SyncableDatabase) dbManager.getDatabase("observation")).getUpURL();
 			Download d2 = new Download(url);
 			downloads.add(d2);
 			downloadManager.upload(this, UPLOAD_OBSERVATIONS, d2);
-
 		}
 
 		downloads.remove(d);

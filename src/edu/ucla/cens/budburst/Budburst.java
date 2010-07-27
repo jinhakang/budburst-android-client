@@ -47,7 +47,8 @@ public class Budburst extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		startActivity(new Intent(this, SplashScreen.class));
+		//startActivity(new Intent(this, SplashScreen.class));
+		startActivity(new Intent(this, LoginScreen.class));
 
 		dbManager = new BudburstDatabaseManager(this);
 		downloadManager = new DownloadManager();

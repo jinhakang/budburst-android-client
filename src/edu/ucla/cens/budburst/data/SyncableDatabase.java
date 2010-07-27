@@ -12,6 +12,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,8 +117,20 @@ public class SyncableDatabase extends WritableDatabase {
 			try {
 
 				SyncableRow row = (SyncableRow) i.next();
+				
+				
+				//Set HttpParameters
+				HttpParams httpParameters = new BasicHttpParams();
+				//Set the timeout in milliseconds until a connection is established.
+				int timeoutConnection = 60000;
+				HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+				//Set the default socket timeout
+				//in milliseconds which is the timeout for waiting for data.
+				int timeoutSocket = 120000;
+				HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+				
 				// Create new client.
-				HttpClient httpClient = new DefaultHttpClient();
+				HttpClient httpClient = new DefaultHttpClient(httpParameters);
 
 				MultipartEntity entity = row.uploadEntity();
 

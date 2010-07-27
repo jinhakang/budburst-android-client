@@ -9,7 +9,7 @@
     <edu.ucla.cens.budburst.helper.IndicatorButton
         android:id="@+id/button1"
 		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="29dip"
         android:layout_alignParentTop="true" 
         android:layout_weight="0.5"
         android:text="@string/my_plants"/>
@@ -17,11 +17,9 @@
 	<edu.ucla.cens.budburst.helper.IndicatorButton
 		android:id="@+id/button2"
 		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="29dip"
         android:layout_alignParentTop="true" 
         android:layout_weight="0.5"
         android:text="@string/my_sites"/>
-
-
 
 </LinearLayout>

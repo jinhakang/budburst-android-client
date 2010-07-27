@@ -244,9 +244,7 @@ public class LoginScreen extends Activity {
 
 	private void gotoMainScreen() {
 
-		 Intent campaignIntent = new Intent(LoginScreen.this,
-		// // campaignScreen.class);
-		 PlantList.class);
+		 Intent campaignIntent = new Intent(LoginScreen.this, PlantList.class);
 		 LoginScreen.this.startActivity(campaignIntent);
 
 		Log.d(TAG, "finished");

@@ -35,9 +35,11 @@ public class DatabaseManager {
 		if (!downUrls.containsKey(name) || !upUrls.containsKey(name))
 			return new StaticDatabase(context, resources.get(name), rows.get(name));
 		else if (downUrls.containsKey(name) && upUrls.containsKey(name) && resources.containsKey(name))
-			return new SyncableDatabase(context, resources.get(name), downUrls.get(name), upUrls.get(name), (SyncableRow) rows.get(name));
+			return new SyncableDatabase(context, resources.get(name), downUrls.get(name), 
+					upUrls.get(name), (SyncableRow) rows.get(name));
 		else if (downUrls.containsKey(name) && upUrls.containsKey(name))
-			return new SyncableDatabase(context, downUrls.get(name), upUrls.get(name), (SyncableRow) rows.get(name));
+			return new SyncableDatabase(context, downUrls.get(name), upUrls.get(name), 
+					(SyncableRow) rows.get(name));
 		return null;
 	}
 }

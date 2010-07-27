@@ -37,14 +37,16 @@ public class Database {
 
 	public ArrayList<Row> find(String filter) {
 		openRead();
-		ArrayList<Row> ret = CursorToArrayList(db.query(name, fields(), filter, null, null, null, null));
+		ArrayList<Row> ret = CursorToArrayList(db.query(name, fields(), 
+				filter, null, null, null, null));
 		close();
 		return ret;
 	}
 
 	public Row find(long id) {
 		openRead();
-		Cursor c = db.query(name, fields(), "_id=?", new String[] { String.valueOf(id) }, null, null, null);
+		Cursor c = db.query(name, fields(), "_id=?", 
+				new String[] { String.valueOf(id) }, null, null, null);
 
 		if (c.moveToFirst()) {
 			rowInstance.readCursor(c);
@@ -97,7 +99,8 @@ public class Database {
 		for (Iterator<Row> i = rows.iterator(); i.hasNext();)
 			try {
 				Row current = i.next();
-				filter += "_id=" + current.getClass().getField(fieldName).get(current);
+				filter += "_id=" 
+					+ current.getClass().getField(fieldName).get(current);
 				if (i.hasNext())
 					filter += " OR ";
 			} catch (SecurityException e) {

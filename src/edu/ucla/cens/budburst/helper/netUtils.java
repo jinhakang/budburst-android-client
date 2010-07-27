@@ -15,6 +15,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -82,8 +85,19 @@ public class netUtils {
 	 */
 
 	public static String[] postData(String url, List<NameValuePair> arguments) {
+
+		//Set HttpParameters
+		HttpParams httpParameters = new BasicHttpParams();
+		//Set the timeout in milliseconds until a connection is established.
+		int timeoutConnection = 60000;
+		HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+		//Set the default socket timeout
+		//in milliseconds which is the timeout for waiting for data.
+		int timeoutSocket = 120000;
+		HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+		
 		// Create a new HttpClient and Post Header
-		HttpClient httpclient = new DefaultHttpClient();
+		HttpClient httpclient = new DefaultHttpClient(httpParameters);
 		HttpPost httppost = new HttpPost(url.toString());
 
 		int status = 0;

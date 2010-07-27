@@ -14,8 +14,8 @@ public class ObservationRow extends SyncableRow {
 	public Long species_id;
 	public Long site_id;
 	public Long phenophase_id;
-	public Long image_id;
-	public String note;
+	public Long image_id; //image_id in database 
+	public String note="";
 	public String time;  // YYYY-MM-DD
 
 	@Override

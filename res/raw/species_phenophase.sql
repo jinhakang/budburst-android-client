@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS `species_phenophase` (
 
 
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 1, 18, 'Leaves', 'Report the date at which the first leaves are completely unfolded from the bud. ');
-INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 10, 28, 'Flowers', 'Report the date when there are no longer any flowers with pollen. ');
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 11, 20, 'Leaves', 'Report the date when 50% of the leaves have started to change color. ');
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 12, 3, 'Leaves', 'Report when 95-100% of the leaves that developed this season, have lost green color or are dried and dead. ');
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 13, 21, 'Leaves', 'Report the date when 50% of the leaves have fallen off the tree or shrub. ');
@@ -20,8 +19,6 @@ INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `ty
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 4, 5, 'Flowers', 'Report the date when 50% of the flowers are fully opened. ');
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 5, 6, 'Flowers', 'Report the date when the last flower has withered, dried up, or died. ');
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 6, 7, 'Fruits', 'Report the date when you notice the first fruits becoming fully ripe or seeds dropping naturally from the plant. ');
-INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 8, 26, 'Flowers', 'Report the date when the plant starts releasing the powdery, yellow pollen from their cones or catkins. ');
-INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(1, 9, 27, 'Flowers', 'Report the date when 50% of the flowers have pollen. ');
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(2, 12, 3, 'Leaves', 'Report when 95-100% of the leaves that developed this season, have lost green color or are dried and dead. ');
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(2, 3, 4, 'Flowers', 'Report the date at which the first flowers are completely open. ');
 INSERT INTO `species_phenophase` (`protocol_id`, `phenophase_id`, `icon_id`, `type`, `description`) VALUES(2, 5, 6, 'Flowers', 'Report the date when the last flower has withered, dried up, or died. ');

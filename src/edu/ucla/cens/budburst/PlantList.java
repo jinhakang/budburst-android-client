@@ -11,14 +11,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.ucla.cens.budburst.data.Row;
 import edu.ucla.cens.budburst.helper.ImageAdapter;
 import edu.ucla.cens.budburst.models.PlantRow;
@@ -59,6 +60,12 @@ public class PlantList extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.plant_list);
 
+		//To display hello, user id
+		//TextView textView = (TextView) this.findViewById(R.id.hello_text);
+		//String username_string = new String(PreferencesManager.currentUser(this));
+		//textView.setText("Hello " + username_string + "!");
+		////////////////////////
+
 		databaseManager = Budburst.getDatabaseManager();
 
 		button1 = (Button) this.findViewById(R.id.button1);
@@ -72,11 +79,12 @@ public class PlantList extends ListActivity {
 		button2 = (Button) this.findViewById(R.id.button2);
 		button2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				Toast.makeText(PlantList.this, "Coming soon..!", Toast.LENGTH_SHORT).show();
 				// currentTask = new
 				// GrabCampaigns().execute("http://t5l-kullect.appspot.com/list?query=new");
 			}
 		});
-		
+		button1.setSelected(true);
 		registerReceiver(mLoggedInReceiver, new IntentFilter(Constants.INTENT_ACTION_LOGGED_OUT));
 	}
 
@@ -91,6 +99,7 @@ public class PlantList extends ListActivity {
 	public void onResume() {
 		super.onResume();
 
+
 		ArrayList<Row> plants = databaseManager.getDatabase("plant").all();
 		data = new ArrayList<HashMap<String, String>>();
 		for (Iterator<Row> i = plants.iterator(); i.hasNext();) {
@@ -103,14 +112,16 @@ public class PlantList extends ListActivity {
 			data.add(map);
 		}
 
-		adapter = new ImageAdapter(this, data, R.layout.list_item, new String[] { ITEM_COMMON_NAME, ITEM_SPECIES_NAME, ITEM_IMG }, new int[] { R.id.name,
+		adapter = new ImageAdapter(this, data, R.layout.list_item, 
+				new String[] { ITEM_COMMON_NAME, ITEM_SPECIES_NAME, ITEM_IMG }, 
+				new int[] { R.id.name,
 				R.id.description, R.id.icon });
 		setListAdapter(this.adapter);
 
 		// set for long clicks
 		getListView().setOnCreateContextMenuListener(ContextMenuListener);
 
-		showUserName();
+		//showUserName();
 	}
 
 
