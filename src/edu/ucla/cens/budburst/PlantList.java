@@ -9,6 +9,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -181,8 +183,13 @@ public class PlantList extends ListActivity {
 
 			break;
 		case MENU_SYNC:
-			intent = new Intent(this, SyncDatabases.class);
-			this.startActivity(intent);
+			if(checkNetwork()){
+				intent = new Intent(this, SyncDatabases.class);
+				this.startActivity(intent);
+			}
+			else{
+				Toast.makeText(PlantList.this, "Please check network status.", Toast.LENGTH_SHORT).show();
+			}
 			break;
 		 case MENU_SETTINGS:
 		 intent = new Intent(this, SettingsScreen.class);
@@ -198,6 +205,22 @@ public class PlantList extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private boolean checkNetwork(){
+		ConnectivityManager mgr = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+		
+		//Check if wifi is available
+		NetworkInfo ni = mgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		if(ni.isConnected())
+			return true;
+		
+		//Check if mobile network is available
+		ni = mgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+		if(ni.isConnected())
+			return true;
+		
+		return false;
+	}
+	
 	// added by EG to try to learn how to do this... add name after "Hello"
 	protected void showUserName() {
 		// Display user name at top of screen
